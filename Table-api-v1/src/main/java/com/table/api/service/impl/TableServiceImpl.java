@@ -41,7 +41,7 @@ public class TableServiceImpl implements TableService{
 		int numberListSize = numbersList.size();
 		int columnAndLineValue = 0;
 		
-		for (int i = 0; i < numberListSize; i++) {
+		for (int i = 1; i < numberListSize; i++) {
 			
 			int iSquared = i * i;
 			
@@ -50,13 +50,44 @@ public class TableServiceImpl implements TableService{
 			}
 			
 			if (iSquared == numberListSize) {
+				columnAndLineValue = i;
 				i = numberListSize + 1;
-				columnAndLineValue = iSquared;
 			}
 			
 		}
 		
-		return new int[columnAndLineValue][columnAndLineValue];
+		int[][] matriz = new int[columnAndLineValue][columnAndLineValue];
+		
+		if (matriz.length > 0) {
+			matriz = this.popularMatriz(matriz, columnAndLineValue, numbersList);
+		}
+		
+		return matriz;
 	}
+
+	@Override
+	public int[][] popularMatriz(int[][] matriz, int columnAndLineValue, List<Integer> numbersList) {
+		
+		int indexNumber = 0;
+		
+		for (int line = 0; line < columnAndLineValue; line++) {
+			
+			for (int column = 0; column < columnAndLineValue; column++) {
+				matriz[line][column] = numbersList.get(indexNumber);
+				indexNumber++;
+			}
+			
+		}
+		
+		
+		return matriz;
+	}
+
+	@Override
+	public int[][] moveNumbersInMatriz(List<Integer> numbersList, int[][] matriz) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }

@@ -23,6 +23,10 @@ public class TableController {
 		List<Integer> numbersList = tableService.processNumbersToList(entryNumbers.getNumbers().trim());
 		int[][] matriz = tableService.processListToMatriz(numbersList);
 		
+		if (matriz.length > 0) {
+			int[][] matrizProcess = tableService.moveNumbersInMatriz(numbersList, matriz);
+		}
+		
 		return null;
 	}
 	

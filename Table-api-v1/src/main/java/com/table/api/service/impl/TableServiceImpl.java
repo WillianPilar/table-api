@@ -19,8 +19,17 @@ public class TableServiceImpl implements TableService{
 			if (numbers.contains(",")) {
 				
 				int index = numbers.indexOf(",");
-				int number = Integer.valueOf(numbers.substring(index - 1, index));
-				numbers = numbers.replace(numbers.substring(index - 1, index + 1), "");
+				String num = "0";
+
+				if( index == 2) {
+					num  = numbers.substring(index - 2, index);
+					numbers = numbers.replaceFirst(numbers.substring(index - 2, index + 1), "").trim();
+				}else {
+					num  = numbers.substring(index - 1, index);
+					numbers = numbers.replaceFirst(numbers.substring(index - 1, index + 1), "").trim();
+				}
+				
+				int number = Integer.valueOf(num);
 				numberList.add(number);
 				
 			}else {

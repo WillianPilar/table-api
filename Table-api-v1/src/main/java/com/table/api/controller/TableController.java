@@ -24,7 +24,7 @@ public class TableController {
 		int[][] matriz = tableService.processListToMatriz(numbersList);
 		
 		if (matriz.length > 0) {
-			int[][] matrizProcess = tableService.moveNumbersInMatriz(numbersList, matriz);
+			int[][] matrizProcess = tableService.moveNumbersInMatriz(numbersList.size() , matriz);
 		}
 		
 		return null;

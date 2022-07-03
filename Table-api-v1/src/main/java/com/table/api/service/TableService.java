@@ -8,8 +8,6 @@ public interface TableService {
 
 	public int[][] processListToMatriz(List<Integer> numbersList);
 	
-	public int[][] popularMatriz(int[][] matriz, int columnAndLineValue, List<Integer> numbersList);
-
-	public int[][] moveNumbersInMatriz(List<Integer> numbersList, int[][] matriz);
+	public int[][] moveNumbersInMatriz(int listSize, int[][] matriz);
 
 }

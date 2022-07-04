@@ -27,21 +27,13 @@ public class TableServiceImpl implements TableService {
 			if (numbers.contains(",")) {
 				
 				/* Valida o index da próxima ','
-				 * Caso index 1 o número não é negativo
-				 * Caso index 2 o número é negativo - EX:-1, */
+				 * Captura o numéro antes da ',' 
+				 * Remove da lista de números da entrada
+				 * Adiciona na lista de números para processamento
+				 * */
 				int index = numbers.indexOf(",");
-				String num = "0";
-
-				/* Se o index for 2 - realiza o processamento de número negativo
-				 * se não realiza o processamento de número positivo */
-				if (index == 2) {
-					num = numbers.substring(index - 2, index);
-					numbers = numbers.replaceFirst(numbers.substring(index - 2, index + 1), "").trim();
-				} else {
-					num = numbers.substring(index - 1, index);
-					numbers = numbers.replaceFirst(numbers.substring(index - 1, index + 1), "").trim();
-				}
-
+				String num = numbers.substring(0, index);
+				numbers = numbers.replaceFirst(numbers.substring(0, index + 1), "").trim();
 				int number = Integer.valueOf(num);
 				numberList.add(number);
 
@@ -94,7 +86,7 @@ public class TableServiceImpl implements TableService {
 				}
 				
 				/* Move os números da última coluna - Com exceção do número da última linha */
-				if (column == lastColumnAndLine && !(line == lastColumnAndLine)) {
+				if (column == lastColumnAndLine && !(line == 0 || line == lastColumnAndLine)) {
 					listNumbersProcess.add(matriz[line][lastColumnAndLine]);
 				}
 				
@@ -110,7 +102,7 @@ public class TableServiceImpl implements TableService {
 				}
 				
 				/* Adiciona os números da última coluna a uma lista Auxiliar */
-				if (!(line == 0 && line == lastColumnAndLine) && column == 0 ) {
+				if (!(line == 0 || line == lastColumnAndLine) && column == 0 ) {
 					listAux.add(matriz[line][0]);
 				}
 			}

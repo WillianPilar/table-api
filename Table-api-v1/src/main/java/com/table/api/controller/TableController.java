@@ -28,7 +28,7 @@ public class TableController {
 		try {
 			
 			/* Processa os números da requisição em uma lista*/
-			List<Integer> numbersList = tableService.processNumbersToList(entryNumbers.getNumbers().trim());
+			List<Integer> numbersList = tableService.processNumbersToList(entryNumbers.getNumbers().trim());		
 			
 			/* Cria uma Matriz a partir da lista */
 			int[][] matriz = tableService.processListToMatriz(numbersList);

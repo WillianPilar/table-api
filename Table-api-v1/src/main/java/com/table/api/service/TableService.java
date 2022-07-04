@@ -12,4 +12,6 @@ public interface TableService {
 
 	public int[][] moveNumbersInMatriz(List<Integer> newList, int[][] matriz, int primaryListSize);
 
+	public int[][] processFullMatrix(int turns, int[][] matrizProcess, int columnAndLine);
+
 }

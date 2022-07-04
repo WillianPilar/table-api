@@ -173,4 +173,66 @@ public class TableServiceImpl implements TableService {
 		
 		return matriz;
 	}
+
+	@Override
+	public int[][] processFullMatrix(int turns, int[][] matrizProcess, int columnAndLine) {
+		
+		int lastColumnAndLine = columnAndLine - 1;
+		List<Integer> listNumbersProcess = new ArrayList<>();
+		int[][] matriz;
+		List<Integer> newList;
+		Boolean isPrimary = true;
+		
+		
+		for (int turn = 0; turn < turns; turn++) {
+			
+			if (isPrimary) {
+				for (int line = 1; line < columnAndLine; line++) {
+					
+					for (int column = 1; column < columnAndLine; column++) {
+						
+						if (!(line == 0 || line == lastColumnAndLine) && !(column == 0 || column == lastColumnAndLine)) {
+							
+							listNumbersProcess.add(matrizProcess[line][column]);
+							
+						}
+						
+					}
+					
+				}
+				isPrimary = false;
+			}
+			matriz = this.processListToMatriz(listNumbersProcess);
+			newList = this.moveNumbersInNewList(listNumbersProcess.size(), matriz);
+			matriz = this.moveNumbersInMatriz(newList, matriz, listNumbersProcess.size());
+			matrizProcess = this.updateMatriz(matrizProcess, matriz, turn + 1, columnAndLine - 1);
+			
+		}
+		
+		
+		
+		return matrizProcess;
+	}
+
+	private int[][] updateMatriz(int[][] matriz, int[][] matrizAux, int index, int lastColumnAndLine) {
+		
+		for (int line = index; line < lastColumnAndLine ; line++) {
+			
+			for (int column = index; column < lastColumnAndLine; column++) {
+				
+				if((line >= index && line <= lastColumnAndLine - index) && (column >= index && column <= lastColumnAndLine - index )) {
+					
+					if ((line == index || line == lastColumnAndLine - index ) || (column == index || column == lastColumnAndLine - index )) {
+						
+						int test = matrizAux[line - 1][column - 1];
+						matriz[line][column] = matrizAux[line - 1][column - 1];
+					}
+				}
+				
+			}
+			
+		}
+		
+		return matriz;
+	}
 }

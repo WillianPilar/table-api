@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.table.api.model.dto.EntryNumbersDTO;
 import com.table.api.service.TableService;
 import com.table.api.service.impl.TableServiceImpl;
+import com.table.api.util.TableUtil;
 
 @RestController
 @RequestMapping(value = "/table/v1")
@@ -39,8 +40,15 @@ public class TableController {
 				/* Cria uma lista auxiliar com os números em ordem para rotacionar a Matriz */
 				List<Integer> newList = tableService.moveNumbersInNewList(numbersList.size(), matriz);
 				
-				/* Rotaciona a Matriz no sentido horário */
+				/* Rotaciona as bordas da Matriz no sentido horário */
 				matrizProcess = tableService.moveNumbersInMatriz(newList, matriz, numbersList.size());
+				
+				//TESTE
+				int turns = (TableUtil.calculateColumnAndLine(numbersList.size()) / 2) - 1;
+				
+				if (turns >= 1) {
+					matrizProcess = tableService.processFullMatrix(turns, matrizProcess, TableUtil.calculateColumnAndLine(numbersList.size()));
+				}
 			
 			} else {
 				return new ResponseEntity<int[][]>(matrizProcess, HttpStatus.BAD_REQUEST);

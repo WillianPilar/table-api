@@ -56,12 +56,12 @@ public class TableServiceImpl implements TableService {
 		if (matriz.length > 0) {
 			matriz = TableUtil.populateMatriz(matriz, columnAndLineValue, numbersList);
 		}
-
+		
 		return matriz;
 	}
 
 	@Override
-	public int[][] moveNumbersInMatriz(int listSize, int[][] matriz) {
+	public List<Integer> moveNumbersInNewList(int listSize, int[][] matriz) {
 
 		int columnAndLineValue = TableUtil.calculateColumnAndLine(listSize);
 		int lastColumnAndLine = columnAndLineValue - 1;
@@ -104,6 +104,54 @@ public class TableServiceImpl implements TableService {
 		listNumbersProcess.add(0, listNumbersProcess.get(listNumbersProcess.size() - 1));
 		listNumbersProcess.remove(listNumbersProcess.size() - 1);
 		
-		return null;
+		return listNumbersProcess;
+	}
+
+	@Override
+	public int[][] moveNumbersInMatriz(List<Integer> newList, int[][] matriz, int primaryListSize) {
+		
+		int columnAndLineValue = TableUtil.calculateColumnAndLine(primaryListSize);
+		int lastColumnAndLine = columnAndLineValue - 1;
+		int newListSize = newList.size();
+		int countTest = 0;
+		
+		
+		for (int line = 0; line < columnAndLineValue; line++) {
+			
+			for (int column = 0; column < columnAndLineValue; column++) {
+				
+				if (line == 0) {
+					matriz[line][column] = newList.get(0);
+					newList.remove(0);
+				}
+				
+				if (!(line == 0 || line == lastColumnAndLine) && column == lastColumnAndLine) {
+					matriz[line][column] = newList.get(0);
+					newList.remove(0);
+				}
+				
+				if (line == lastColumnAndLine) {
+					
+					int indexToAdd = lastColumnAndLine - countTest;
+					matriz[line][column] = newList.get(indexToAdd);
+					newList.remove(indexToAdd);
+					countTest++;
+				}
+							
+			}
+			
+		}
+		
+		for (int line = 0; line < columnAndLineValue; line++) {
+			for (int column = 0; column < columnAndLineValue; column++) {
+				if (!(line == 0 || line == lastColumnAndLine) && column == 0) {
+					matriz[line][column] = newList.get(newList.size() - 1);
+					newList.remove(newList.size() - 1);
+				}
+			}
+		}
+		
+		
+		return matriz;
 	}
 }

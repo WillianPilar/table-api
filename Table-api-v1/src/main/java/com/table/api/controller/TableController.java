@@ -17,26 +17,20 @@ public class TableController {
 	
 	private TableService tableService = new TableServiceImpl();
 	
-	@PostMapping("/process-json")
-	public String tableProcessJson(@RequestBody EntryNumbersDTO entryNumbers) {
+	@PostMapping("/process")
+	public int[][] tableProcessJson(@RequestBody EntryNumbersDTO entryNumbers) {
+		
+		int[][] matrizProcess = new int[0][0];
 		
 		List<Integer> numbersList = tableService.processNumbersToList(entryNumbers.getNumbers().trim());
 		int[][] matriz = tableService.processListToMatriz(numbersList);
 		
 		if (matriz.length > 0) {
-			int[][] matrizProcess = tableService.moveNumbersInMatriz(numbersList.size() , matriz);
+			List<Integer> newList = tableService.moveNumbersInNewList(numbersList.size() , matriz);
+			matrizProcess = tableService.moveNumbersInMatriz(newList, matriz, numbersList.size());
 		}
 		
-		return null;
+		return matrizProcess;
 	}
 	
-	@PostMapping("/process-text")
-	public String tableProcessText(@RequestBody String entryNumbers) {
-		
-		List<Integer> numbersList = tableService.processNumbersToList(entryNumbers.trim());
-		int[][] matriz = tableService.processListToMatriz(numbersList);
-		
-		return null;
-	}
-
 }

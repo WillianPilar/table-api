@@ -43,10 +43,13 @@ public class TableController {
 				/* Rotaciona as bordas da Matriz no sentido horário */
 				matrizProcess = tableService.moveNumbersInMatriz(newList, matriz, numbersList.size());
 				
-				//TESTE
+				/* Quantidade de turnos que precisam ser executados */
 				int turns = (TableUtil.calculateColumnAndLine(numbersList.size()) / 2) - 1;
 				
+				/* Caso reste 1 turno ou mais, rotaciona os valores internos da Matriz */
 				if (turns >= 1) {
+					
+					/* Rotaciona valorez internos da Matriz */
 					matrizProcess = tableService.processFullMatrix(turns, matrizProcess, TableUtil.calculateColumnAndLine(numbersList.size()));
 				}
 			

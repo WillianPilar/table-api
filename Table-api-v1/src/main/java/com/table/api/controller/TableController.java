@@ -25,13 +25,23 @@ public class TableController {
 		int[][] matrizProcess = new int[0][0];
 
 		try {
-
+			
+			/* Processa os números da requisição em uma lista*/
 			List<Integer> numbersList = tableService.processNumbersToList(entryNumbers.getNumbers().trim());
+			
+			/* Cria uma Matriz a partir da lista */
 			int[][] matriz = tableService.processListToMatriz(numbersList);
-
+			
+			/* Se a lista for maior que 0 - COntinua o processamento para Matriz
+			 * Se não retorna 400 (Bad Request) e a lista vázia no Body*/
 			if (matriz.length > 0) {
+				
+				/* Cria uma lista auxiliar com os números em ordem para rotacionar a Matriz */
 				List<Integer> newList = tableService.moveNumbersInNewList(numbersList.size(), matriz);
+				
+				/* Rotaciona a Matriz no sentido horário */
 				matrizProcess = tableService.moveNumbersInMatriz(newList, matriz, numbersList.size());
+			
 			} else {
 				return new ResponseEntity<int[][]>(matrizProcess, HttpStatus.BAD_REQUEST);
 			}
